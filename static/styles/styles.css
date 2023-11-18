@@ -1,0 +1,251 @@
+* {
+    box-sizing:border-box;
+    padding: 0;
+    margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    * {
+      scroll-behavior: smooth;
+    }
+}
+
+html {
+    background-color:#121212;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.hotbar {
+    display: flex;
+    align-items: center;
+    background-color: #1f1f1f;
+    height: 80px;
+    width: 100vw;
+    box-shadow: 10px 2px 8px black;
+    padding-left: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.gif {
+    margin: 0;
+    padding: 0;
+    height: 50%;
+    width: 5%;
+}
+
+main {
+    display: flex;
+    flex-direction:row;
+}
+
+.upload-box {
+    height: 50vh;
+    width: 50vw;
+    background-color: #1f1f1f;
+    box-shadow: 2px 2px 8px black;
+    border-radius: 30px;
+    position: relative;
+    top: 50px;
+    left: 50px;
+}
+
+form {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+    align-items: center;
+}
+
+.results-box {
+    height: 80vh;
+    width: 40vw;
+    background-color: #1f1f1f;
+    box-shadow: 2px 2px 8px black;
+    border-radius: 20px;
+    position: relative;
+    top: 50px;
+    left: 100px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+}
+
+.search {
+    height: 80px;
+    width: 80%;
+    background-color: rgb(204, 196, 196);
+    border-radius: 25px;
+    margin: 0px auto;
+    box-shadow: 0px 2px 8px #121212;
+    display: flex;
+}
+
+.search-title {
+    color: rgb(150, 142, 142);
+    font-size: 22px;
+    padding: 15px 0;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    font-weight: lighter;
+}
+
+.classify-title {
+    color: rgb(150, 142, 142);
+    font-size: 20px;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+}
+
+.waveform-flex {
+    display: flex;
+    width: 60%;
+    height: 120px;
+    background-color: #242424;
+    border: 1px solid rgb(150, 142, 142);
+    border-radius: 30px;
+    padding: 10px;
+    padding-top: 13px;
+    justify-content: space-between;
+}
+
+#waveform {
+    width: 85%;
+}
+
+.play {
+    width: 45px;
+}
+
+.play:hover {
+    cursor: pointer;
+}
+
+img {
+    width: 32px;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: -2px;
+    left: 5px;
+}
+
+h1 {
+    color: rgb(150, 142, 142);
+    font-weight: bolder;
+}
+
+h3 {
+    color: rgb(150, 142, 142);
+    font-size: 22px;
+    font-weight: lighter;
+}
+
+.genre {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 8%;
+    background-color: #2b2a2a;
+    box-shadow: 0px 2px 8px #121212;
+    border-radius: 20px;
+    position: relative;
+    padding: 0 24px;
+    justify-content: flex-end;
+}
+
+.percentage-bar {
+    height: 20%;
+    width: 75%;
+    background-color: rgb(107, 100, 100);
+    border-radius: 10px;
+    background: linear-gradient(90deg,rgb(169, 201, 144) 50%, rgb(107, 100, 100) 50%)
+}
+
+.nice_button {
+    align-items: center;
+    width: 20%;
+    height: 80px;
+    border: none;
+    background-color: rgb(187, 181, 181);
+    color: rgb(54, 50, 50);
+    cursor: pointer;
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+    transition: background .2s ease-in-out;
+    font-size: 0;
+    border-right: 1px solid #2b2a2a;
+}
+
+.nice_button:hover {
+    background: #a9c990;
+}
+
+.submits {
+    background-color: #252525;
+    width: 40%;
+    height: 40px;
+    position: relative;
+    box-shadow: 1px 0px 4px #121212;
+    border-radius: 20px;
+    transition: background .2s ease-in-out;
+    border: none;
+}
+
+.submits:hover {
+    background: #313131;
+    cursor: pointer;
+}
+
+
+.percent {
+    font-size: 20px;
+    color: rgb(150, 142, 142);
+    font-weight: bold;
+    width: 40px;
+    text-indent: 10px;
+}
+
+.fileName {
+    margin: auto 0;
+    padding: 0 20px;
+    font-size: 25px;
+}
+
+audio {
+    width: 50%;
+}
+
+@media (max-width: 800px) {
+    main{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .results-box{
+        padding-top: 20px;
+        top: 0;
+        left: 0;
+        box-shadow: none;
+        width: auto;
+
+    }
+    .upload-box {
+        top: 5px;
+        left: 0;
+        box-shadow: none;
+        border-radius: 0;
+        width: auto;
+    }
+    .hotbar {
+        justify-content: center;
+        padding: 0;
+    }
+}

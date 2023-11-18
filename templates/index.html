@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="This is a web application that classifies the genre of a musical track"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Music Genre Classifier</title>
+    <link rel= "stylesheet" href= "{{ url_for('static',filename='styles/styles.css') }}">
+    <link rel="icon" href="{{ url_for('static',filename='styles/celestecircle.png') }}" type="image/x-icon"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@100&display=swap');
+    </style>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function (){
+            $('#classical').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ classical}}, rgb(107, 100, 100) 0%)"})
+            $('#jazz').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ jazz }}, rgb(107, 100, 100) 0%)"})
+            $('#blues').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ blues }}, rgb(107, 100, 100) 0%)"})
+            $('#pop').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ pop }}, rgb(107, 100, 100) 0%)"})
+            $('#hiphop').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ hiphop }}, rgb(107, 100, 100) 0%)"})
+            $('#disco').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ disco }}, rgb(107, 100, 100) 0%)"})
+            $('#country').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ country }}, rgb(107, 100, 100) 0%)"})
+            $('#metal').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ metal }}, rgb(107, 100, 100) 0%)"})
+            $('#rock').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ rock }}, rgb(107, 100, 100) 0%)"})
+            $('#reggae').css({"background":"linear-gradient(90deg,rgb(169, 201, 144) {{ reggae }}, rgb(107, 100, 100) 0%)"})
+            $('#getFile').change(function(e) {
+                var i = e.target.files[0].name;
+                $("#fileName").text(i);
+            });
+            $('#submits').on('click', function(e) {
+                $("#songTitle").text(i);
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+    <header>
+        <div class="hotbar">
+            <h1>AI Music Genre Classifier</h1>
+        </div>
+    </header>
+    <main>
+        <div class="upload-box">
+            <p class = "search-title">Select your song (.mp3/wav)</p>
+            <form action="/predict" enctype="multipart/form-data" method="post">
+                <div class="search">
+                        <button class = "nice_button" onclick="document.getElementById('getFile').click()"><img src="{{ url_for('static',filename='styles/upload.png') }}"/></button>
+                        <input type='file' id="getFile" style="display:none" name="file" required="required" accept=".mp3,.wav"/>
+                        <p class = 'fileName' id="fileName"></p>
+                </div>
+                <div class = "waveform-flex">
+                    <img id = "play" class = "play" src = "{{ url_for('static',filename='styles/playgrey.png') }}"/>
+                    <div id="waveform">
+                    </div>
+                </div>
+                <script type="module">
+                    import WaveSurfer from 'https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js'
+                    
+                    var playBTN = document.getElementById('play')
+
+                    const wavesurfer = WaveSurfer.create({
+                      container: '#waveform',
+                      waveColor: '#ccc4c4',
+                      progressColor: '#a9c990',
+                      barWidth: 4,
+                      responsive: true,
+                      barRadius: 4,
+                      height: 90,
+                      url: "{{ url_for('static',filename='styles/sound.mp3') }}",
+                    })
+                    
+                    wavesurfer.on('interaction', () => {
+                      wavesurfer.play()
+                    })
+                    playBTN.onclick = function() {
+                        wavesurfer.playPause();
+                        if (playBTN.src.includes("{{ url_for('static',filename='styles/playgrey.png') }}")) {
+                            playBTN.src = "{{ url_for('static',filename='styles/pausegrey.png') }}";
+                        } else {
+                            playBTN.src = "{{ url_for('static',filename='styles/playgrey.png') }}";
+                        }
+                    }
+
+                    wavesurfer.on('finish', function(){
+                        playBTN.src = "{{ url_for('static',filename='styles/playgrey.png') }}";
+                        wavesurfer.stop();
+                    })
+                </script>
+                <button id = "submits" type="submit" class="submits"><p class = "classify-title">Upload & Classify</p></button>
+            </form>
+        </div>
+        <div class="results-box">
+            <div class="genre">
+                <h3 style="margin-right:auto">Classical</h3>
+                <div id = "classical" class="percentage-bar"></div>
+                <p class = "percent">{{ classical }}</p>
+            </div>
+            <div class="genre">
+                <h3 style="margin-right:auto">Jazz</h3>
+                <div id = "jazz" class="percentage-bar"></div>
+                <p class = "percent">{{ jazz }}</p>
+            </div>
+            <div class="genre">
+                <h3 style="margin-right:auto">Blues</h3>
+                <div id = "blues" class="percentage-bar"></div>
+                <p class = "percent">{{ blues }}</p>
+            </div>
+            <div class="genre">
+                <h3 style="margin-right:auto">Pop</h3>
+                <div id = "pop" class="percentage-bar"></div>
+                <p class = "percent">{{ pop }}</p>
+            </div>
+            <div class="genre">
+                <h3 style="margin-right:auto">Hip-hop</h3>
+                <div id = "hiphop" class="percentage-bar"></div>
+                <p class = "percent">{{ hiphop }}</p>
+            </div>
+            <div class="genre">
+                <h3 style="margin-right:auto">Disco</h3>
+                <div id = "disco" class="percentage-bar"></div>
+                <p class = "percent">{{ disco }}</p>
+            </div>
+            <div class="genre">
+                <h3 style="margin-right:auto">Country</h3>
+                <div id = "country" class="percentage-bar"></div>
+                <p class = "percent">{{ country }}</p>
+            </div>
+            <div class="genre">
+                <h3 style="margin-right:auto">Metal</h3>
+                <div id = "metal" class="percentage-bar"></div>
+                <p class = "percent">{{ metal }}</p>
+            </div>
+            <div class="genre">
+                <h3 style="margin-right:auto">Rock</h3>
+                <div id = "rock" class="percentage-bar"></div>
+                <p class = "percent">{{ rock }}</p>
+            </div>
+            <div class="genre">
+                <h3 style="margin-right:auto">Reggae</h3>
+                <div id = "reggae" class="percentage-bar"></div>
+                <p class = "percent">{{ reggae }}</p>
+            </div>
+        </div>
+    </main>
+</body>
+
+
+
+</html>
