@@ -26,7 +26,7 @@ joblib==1.3.2
 keras==2.15.0
 lazy_loader==0.3
 libclang==16.0.6
-librosa @ file:///C:/Users/sheha/Documents/_repo/MusicClass/librosa-0.10.1-py3-none-any.whl
+librosa==0.10.1
 llvmlite==0.41.1
 Markdown==3.5.1
 MarkupSafe==2.1.3
